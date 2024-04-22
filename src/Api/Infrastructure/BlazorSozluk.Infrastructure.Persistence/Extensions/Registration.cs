@@ -26,6 +26,9 @@ namespace BlazorSozluk.Infrastructure.Persistence.Extensions
             //seedData.SeedAsync(configuration).GetAwaiter().GetResult();
 
             services.AddScoped<IUserRepository, UserReporsitory>();
+            services.AddScoped<IEntryRepository, EntryRepository>();
+            services.AddScoped<IEntryCommentRepository, EntryCommentRepository>();
+            services.AddScoped<IEmailConfirmationRepository, EmailConfirmationRepository>();
 
             return services;
         }
