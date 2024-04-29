@@ -15,18 +15,6 @@ using System.Threading.Tasks;
 namespace BlazorSozluk.Api.Application.Features.Commands.EntryComment.DeleteVote
 {
 
-    public class DeleteEntryCommentVoteCommand : IRequest<bool>
-    {
-        public DeleteEntryCommentVoteCommand(Guid entryCommentId, VoteType voteType, Guid userId)
-        {
-            entryCommentId = EntryCommentId;
-            UserId = userId;
-        }
-
-        public Guid EntryCommentId { get; set; }
-        public Guid UserId { get; set; }
-    }
-
     public class DeleteEntryCommentVoteCommandHandler : IRequestHandler<DeleteEntryCommentVoteCommand, bool>
     {
         private readonly IEntryCommentRepository _EntryCommentRepository;

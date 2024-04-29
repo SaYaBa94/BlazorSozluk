@@ -10,15 +10,6 @@ using System.Threading.Tasks;
 
 namespace BlazorSozluk.Api.Application.Features.Commands.User.ConfirmEmail
 {
-    public class ConfirmEmailCommand : IRequest<bool>
-    {
-        public ConfirmEmailCommand(Guid confirmationId)
-        {
-            ConfirmationId = confirmationId;
-        }
-
-        public Guid ConfirmationId { get; set; }
-    }
     public class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand, bool>
     {
         private readonly IUserRepository _userRepository;

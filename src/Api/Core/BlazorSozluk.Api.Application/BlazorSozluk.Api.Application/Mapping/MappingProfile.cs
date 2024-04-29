@@ -29,6 +29,8 @@ namespace BlazorSozluk.Api.Application.Mapping
             CreateMap<CreateEntryCommentCommand, EntryComment>()
                 .ReverseMap();
 
+            CreateMap<UserDetailViewModel, User>()
+                .ReverseMap();
         }
     }
 }

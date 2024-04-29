@@ -1,28 +1,28 @@
 ﻿using AutoMapper;
 using BlazorSozluk.Api.Application.Interfaces.Repositories;
-using BlazorSozluk.Common.Models.Page;
 using BlazorSozluk.Common.Models.Queries;
 using BlazorSozluk.Common.ViewModels;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using BlazorSozluk.Common.Infrastructure.Extensions;
 
-namespace BlazorSozluk.Api.Application.Features.Queries.GetMainPageEntries
+namespace BlazorSozluk.Api.Application.Features.Queries.GetEntryDetails
 {
-    public class GetMainPageEntriesQueryHandler : IRequestHandler<GetMainPageEntriesQuery, PagedViewModel<GetEntryDetailViewModel>>
+    public class GetEntryDetailQueryHandler : IRequestHandler<GetEntryDetailQuery, GetEntryDetailViewModel>
     {
         private readonly IEntryRepository _entryRepository;
 
-        public GetMainPageEntriesQueryHandler(IEntryRepository entryRepository, IMapper mapper)
+        public GetEntryDetailQueryHandler(IEntryRepository entryRepository, IMapper mapper)
         {
             _entryRepository = entryRepository;
         }
-        public async Task<PagedViewModel<GetEntryDetailViewModel>> Handle(GetMainPageEntriesQuery request, CancellationToken cancellationToken)
+        public async Task<GetEntryDetailViewModel> Handle(GetEntryDetailQuery request, CancellationToken cancellationToken)
         {
             var query = _entryRepository.AsQueryAble();
+
             query = query.Include(x => x.EntryFavorites)
                 .Include(x => x.CreatedBy)
-                .Include(x => x.EntryVotes);
+                .Include(x => x.EntryVotes)
+                .Where(x=>x.Id==request.EntryId);
 
             var list = query.Select(x => new GetEntryDetailViewModel()
             {
@@ -37,9 +37,8 @@ namespace BlazorSozluk.Api.Application.Features.Queries.GetMainPageEntries
                 ? x.EntryVotes.FirstOrDefault(y => y.CreatedById == request.UserId).VoteType
                 : VoteType.None
             });
-            var entries = await list.GetPaged(request.Page, request.PageSize);
 
-            return entries;
+            return await list.FirstOrDefaultAsync(cancellationToken);
 
 
         }

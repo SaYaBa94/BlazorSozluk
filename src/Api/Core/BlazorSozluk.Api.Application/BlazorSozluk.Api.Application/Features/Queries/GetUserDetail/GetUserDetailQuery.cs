@@ -1,0 +1,25 @@
+﻿using AutoMapper;
+using BlazorSozluk.Api.Application.Features.Queries.GetMainPageEntries;
+using BlazorSozluk.Common.Models.Page;
+using BlazorSozluk.Common.Models.Queries;
+using BlazorSozluk.Common.ViewModels;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BlazorSozluk.Api.Application.Features.Queries.GetUserDetail
+{
+    public class GetUserDetailQuery : IRequest<UserDetailViewModel>
+    {
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
+        public GetUserDetailQuery(Guid userId, string userName = null)
+        {
+            UserId = userId;
+            UserName = userName;
+        }
+    }
+}
