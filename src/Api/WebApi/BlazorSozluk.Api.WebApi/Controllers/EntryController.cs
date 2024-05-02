@@ -90,7 +90,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
 
         [HttpGet]
         [Route("Search")]
-        public async Task<IActionResult> GetMainPageEntries([FromQuery] SearchEntryQuery query)
+        public async Task<IActionResult> SearchEntries([FromQuery] SearchEntryQuery query)
         {
             var result = await _mediator.Send(query);
             return Ok(result);
